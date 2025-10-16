@@ -3,14 +3,10 @@ using System.Threading.Tasks;
 
 namespace ultimaterace.Vehicles
 {
-    public class Submarine : Vehicle
+    public class Submarine(Scoreboard sb) : Vehicle("Submarine", sb.SubDistanceToTravelToWin, sb)
     {
         private readonly int speedMin = 40;
         private readonly int speedMax = 80;
-
-        public Submarine(Scoreboard sb) 
-            : base("Submarine", sb.SubDistanceToTravelToWin, sb) 
-        { }
 
         public override async Task MoveAsync(CancellationToken token)
         {
@@ -18,10 +14,12 @@ namespace ultimaterace.Vehicles
 
             while (!HasFinished && !token.IsCancellationRequested)
             {
+                // Random speed
                 Distance += random.Next(speedMin, speedMax);
                 UpdateStatus(VehicleStatus.Racing);
                 scoreboard.SubPosition = Distance;
 
+                // Check if finished
                 if (Distance >= TargetDistance)
                 {
                     Distance = TargetDistance;

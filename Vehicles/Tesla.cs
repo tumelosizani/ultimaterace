@@ -4,16 +4,12 @@ using System.Threading.Tasks;
 
 namespace ultimaterace.Vehicles
 {
-    public class Tesla : Vehicle
+    public class Tesla(Scoreboard sb) : Vehicle("Tesla", sb.TeslaDistanceToTravelToWin, sb)
     {
         private readonly double breakdownChance = 0.1;
         private readonly double chargeChance = 0.15;
         private readonly int speedMin = 120;
         private readonly int speedMax = 180;
-
-        public Tesla(Scoreboard sb) 
-            : base("Tesla", sb.TeslaDistanceToTravelToWin, sb) 
-        { }
 
         public override async Task MoveAsync(CancellationToken token)
         {

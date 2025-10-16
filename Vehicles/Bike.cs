@@ -3,16 +3,12 @@ using System.Threading.Tasks;
 
 namespace ultimaterace.Vehicles
 {
-    public class Bike : Vehicle
+    public class Bike(Scoreboard sb) : Vehicle("Bike", sb.BikeDistanceToTravelToWin, sb)
     {
         private readonly double breakdownChance = 0.5;
         private readonly double refuelChance = 0.1;
         private readonly int speedMin = 100;
         private readonly int speedMax = 200;
-
-        public Bike(Scoreboard sb) 
-            : base("Bike", sb.BikeDistanceToTravelToWin, sb) 
-        { }
 
         public override async Task MoveAsync(CancellationToken token)
         {
